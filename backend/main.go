@@ -94,6 +94,15 @@ func main() {
 		return c.JSON(http.StatusCreated,expense)
 	})
 
+// =====================================================
+// GET /expenses
+// 登録されている支出一覧を取得する
+// =====================================================
+
+e.GET("/expenses",func(c echo.Context) error {
+	return c.JSON(http.StatusOK,expenses)
+})
+
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))
 }
