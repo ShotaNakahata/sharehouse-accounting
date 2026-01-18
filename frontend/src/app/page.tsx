@@ -1,8 +1,7 @@
 "use client";
-import { Chart, useChart } from "@chakra-ui/charts";
 import { Text } from "@chakra-ui/react";
-import { Cell, Label, Pie, PieChart, Tooltip } from "recharts";
 import { Table, Box } from "@chakra-ui/react";
+import MonthlySummary from "@/app/_components/MonthlySummary";
 
 const items = [
 	{ id: 1, name: "Laptop", category: "Electronics", price: 999.99 },
@@ -12,14 +11,26 @@ const items = [
 	{ id: 5, name: "Headphones", category: "Accessories", price: 199.99 },
 ];
 export default function Home() {
-	const chart = useChart({
-		data: [
-			{ name: "windows", value: 400, color: "blue.solid" },
-			{ name: "mac", value: 300, color: "orange.solid" },
-			{ name: "linux", value: 300, color: "pink.solid" },
-			{ name: "other", value: 200, color: "green.solid" },
-		],
-	});
+	const mockChartItems = [
+		{
+			categoryId: "fixed",
+			label: "固定費",
+			amount: 6000,
+			color: "blue.solid",
+		},
+		{
+			categoryId: "utility",
+			label: "光熱費",
+			amount: 2500,
+			color: "orange.solid",
+		},
+		{
+			categoryId: "other",
+			label: "その他",
+			amount: 1500,
+			color: "green.solid",
+		},
+	];
 	return (
 		<div className="flex min-h-screen flex-col items-center">
 			{/* Header（仮）のちにlayoutへ移行 */}
@@ -33,36 +44,12 @@ export default function Home() {
 						合計出費 10000元
 					</Text>
 				</div>
-				<Chart.Root boxSize="200px" chart={chart} mx="auto">
-					<PieChart>
-						<Tooltip
-							cursor={false}
-							animationDuration={100}
-							content={<Chart.Tooltip hideLabel />}
-						/>
-						<Pie
-							innerRadius={80}
-							outerRadius={100}
-							isAnimationActive={false}
-							data={chart.data}
-							dataKey={chart.key("value")}
-							nameKey="name"
-						>
-							<Label
-								content={({ viewBox }) => (
-									<Chart.RadialText
-										viewBox={viewBox}
-										title={chart.getTotal("value").toLocaleString()}
-										description="users"
-									/>
-								)}
-							/>
-							{chart.data.map((item) => (
-								<Cell key={item.color} fill={chart.color(item.color)} />
-							))}
-						</Pie>
-					</PieChart>
-				</Chart.Root>
+				<MonthlySummary
+					month="2026-01"
+					totalAmount={10000}
+					items={mockChartItems}
+				/>
+
 				<Box
 					mt={6}
 					border="1px solid"
