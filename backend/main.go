@@ -8,6 +8,8 @@ import (
 	"time" // 現在時刻を取得するため
 
 	"github.com/labstack/echo/v4" // Echo：GoでWebサーバーを書くためのライブラリ
+
+	"backend/middleware"
 )
 
 // ===== Expense構造体 =====
@@ -41,6 +43,8 @@ var expenses []Expense
 func main() {
 	// Echoの初期化（Webサーバー本体を作る）
 	e := echo.New()
+	
+	e.Use(middleware.CORS())
 
 	// POST /expenses（支出を1件登録）
 	e.POST("/expenses", func(c echo.Context) error {
@@ -93,6 +97,15 @@ func main() {
 		// ⑥ 成功レスポンス（201 Created）
 		return c.JSON(http.StatusCreated,expense)
 	})
+
+// =====================================================
+// GET /expenses
+// 登録されている支出一覧を取得する
+// =====================================================
+
+e.GET("/expenses",func(c echo.Context) error {
+	return c.JSON(http.StatusOK,expenses)
+})
 
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))
