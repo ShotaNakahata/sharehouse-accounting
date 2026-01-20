@@ -1,65 +1,57 @@
-import Image from "next/image";
+"use client";
+import { Text } from "@chakra-ui/react";
+import { Table, Box } from "@chakra-ui/react";
+import MonthlySummary from "@/app/_components/MonthlySummary";
+import CategorySummaryTable from "@/app/_components/CategorySummaryTable";
 
+const items = [
+	{ id: 1, name: "Laptop", category: "Electronics", price: 999.99 },
+	{ id: 2, name: "Coffee Maker", category: "Home Appliances", price: 49.99 },
+	{ id: 3, name: "Desk Chair", category: "Furniture", price: 150.0 },
+	{ id: 4, name: "Smartphone", category: "Electronics", price: 799.99 },
+	{ id: 5, name: "Headphones", category: "Accessories", price: 199.99 },
+];
 export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+	const mockChartItems = [
+		{
+			categoryId: "fixed",
+			label: "固定費",
+			amount: 6000,
+			color: "blue.solid",
+		},
+		{
+			categoryId: "utility",
+			label: "光熱費",
+			amount: 2500,
+			color: "orange.solid",
+		},
+		{
+			categoryId: "other",
+			label: "その他",
+			amount: 1500,
+			color: "green.solid",
+		},
+	];
+	return (
+		<div className="flex min-h-screen flex-col items-center">
+			{/* Header（仮）のちにlayoutへ移行 */}
+			<header className="h-20 border-b flex items-center px-4">Header</header>
+			<main className="flex-1 px-4 py-6 w-[90%] ">
+				<div className="flex flex-col items-center justify-center ">
+					<Text fontSize="2xl" fontWeight="bold">
+						2026-01
+					</Text>
+					<Text fontSize="2xl" fontWeight="bold">
+						合計出費 10000元
+					</Text>
+				</div>
+				<MonthlySummary
+					month="2026-01"
+					totalAmount={10000}
+					items={mockChartItems}
+				/>
+				<CategorySummaryTable rows={mockChartItems} />
+			</main>
+		</div>
+	);
 }
