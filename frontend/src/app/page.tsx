@@ -2,6 +2,7 @@
 import { Text } from "@chakra-ui/react";
 import { Table, Box } from "@chakra-ui/react";
 import MonthlySummary from "@/app/_components/MonthlySummary";
+import CategorySummaryTable from "@/app/_components/CategorySummaryTable";
 
 const items = [
 	{ id: 1, name: "Laptop", category: "Electronics", price: 999.99 },
@@ -49,45 +50,7 @@ export default function Home() {
 					totalAmount={10000}
 					items={mockChartItems}
 				/>
-
-				<Box
-					mt={6}
-					border="1px solid"
-					borderColor="gray.300"
-					borderRadius="md"
-					overflow="hidden"
-				>
-					<Table.Root size="sm" variant="line" width="100%">
-						<Table.Header>
-							<Table.Row>
-								<Table.ColumnHeader
-									backgroundColor="gray.300"
-									borderRight="1px solid"
-									borderColor="gray.400"
-								>
-									Category
-								</Table.ColumnHeader>
-								<Table.ColumnHeader
-									backgroundColor="gray.300"
-									textAlign="start"
-								>
-									Price
-								</Table.ColumnHeader>
-							</Table.Row>
-						</Table.Header>
-
-						<Table.Body>
-							{items.map((item) => (
-								<Table.Row key={item.id}>
-									<Table.Cell borderRight="1px solid" borderColor="gray.200">
-										{item.category}
-									</Table.Cell>
-									<Table.Cell textAlign="end">{item.price}</Table.Cell>
-								</Table.Row>
-							))}
-						</Table.Body>
-					</Table.Root>
-				</Box>
+				<CategorySummaryTable rows={mockChartItems} />
 			</main>
 		</div>
 	);
